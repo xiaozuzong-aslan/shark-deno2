@@ -5,26 +5,8 @@
       <record-nav />
       <Kind />
     </div>
-    <div class="numberPad">
-      <div class="notes">beizhu</div>
-      <div class="buttons"></div>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>今天</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>+</button>
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>-</button>
-      <button>.</button>
-      <button>0</button>
-      <button>x</button>
-      <button>完成</button>
-    </div>
+
+    <NumberPad v-if="xx" />
     <Layout></Layout>
   </div>
 </template>
@@ -32,19 +14,27 @@
 <script>
 import recordNav from "@/components/add/recordNav.vue";
 import Kind from "@/components/add/kind.vue";
+
+import NumberPad from "@/components/add/numberPda.vue";
+
 export default {
   name: "Add",
   components: {
     recordNav,
-    Kind
+    Kind,
+    NumberPad
   },
   data() {
     return {};
   },
+
   methods: {},
   computed: {
     toggle() {
-      return this.$store.state.addToggle;
+      return this.$store.state.addDate.addToggle;
+    },
+    xx() {
+      return this.$store.state.addDate.currentKind;
     }
   }
 };
@@ -70,10 +60,6 @@ export default {
 }
 .numberPad {
   position: fixed;
-  z-index: 2;
-  border: 1px solid red;
-  ul {
-    display: flex;
-  }
+  bottom: 0;
 }
 </style>

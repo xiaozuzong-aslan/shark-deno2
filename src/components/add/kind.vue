@@ -12,15 +12,17 @@
 <script>
 import addDataSource from "@/lib/addDataSource.js";
 export default {
+  
   data() {
     return {
       kindList: addDataSource,
-      currentKind: undefined
+      currentKind: this.$store.state.addDate.currentKind
     };
   },
   methods: {
     chooseKind(kind) {
-      this.currentKind = kind;
+      this.currentKind = kind
+      this.$store.commit('changeCurrentKind',kind)
     }
   }
 };
