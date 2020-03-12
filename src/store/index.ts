@@ -1,31 +1,35 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     addDate: {
-      addToggle: true,
-      currentKind: undefined,//当前选择的类型，取消按钮时需要变成空字符，
-      type: '-'
+      addToggle: false,
+      currentKind: undefined, //当前选择的类型，取消按钮时需要变成空字符，
+      type: "-",
+      notes: "",
+      number:''
     }
   },
   mutations: {
     changeAddToggle(state) {
-      state.addDate.addToggle = !state.addDate.addToggle
+      state.addDate.addToggle = !state.addDate.addToggle;
     },
     changeCurrentKind(state, currentKind) {
-      console.log(state.addDate.currentKind)
-      state.addDate.currentKind = currentKind
-      console.log(state.addDate.currentKind)
+      state.addDate.currentKind = currentKind;
     },
     changeType(state, type) {
-      state.addDate.type = type
+      state.addDate.type = type;
+    },
+    changeNotes(state,notes){
+      state.addDate.notes = notes
+    },
+    changeNumber(state,number){
+      state.addDate.number = number
     }
   },
-  actions: {
-  },
-  modules: {
-  }
-})
+  actions: {},
+  modules: {}
+});

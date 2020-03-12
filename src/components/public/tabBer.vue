@@ -20,7 +20,6 @@
 export default {
   methods: {
     changeAddToggle() {
-      console.log("xxxx");
       this.$store.commit("changeAddToggle");
     }
   }

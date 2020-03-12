@@ -5,7 +5,6 @@
       <record-nav />
       <Kind />
     </div>
-
     <NumberPad v-if="xx" />
     <Layout></Layout>
   </div>
@@ -25,13 +24,15 @@ export default {
     NumberPad
   },
   data() {
-    return {};
+    return {
+     
+    };
   },
-
-  methods: {},
+  
   computed: {
     toggle() {
       return this.$store.state.addDate.addToggle;
+      
     },
     xx() {
       return this.$store.state.addDate.currentKind;

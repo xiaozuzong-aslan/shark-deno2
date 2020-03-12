@@ -13,22 +13,20 @@
 
 <script>
 export default {
- data(){
-   return{
-     type:this.$store.state.addDate.type
-   }
- },
-  created(){
-    console.log(this.type)
+  data() {
+    return {
+      type: this.$store.state.addDate.type
+    };
   },
+
   methods: {
     changeAddToggle() {
       this.$store.commit("changeAddToggle");
-      this.$store.commit('changeCurrentKind',undefined)
+      this.$store.commit("changeCurrentKind", undefined);
     },
     changeType(type) {
-      this.type = type
-      this.$store.commit('changeType',type)
+      this.type = type;
+      this.$store.commit("changeType", type);
     }
   }
 };
