@@ -11,9 +11,7 @@
       <button @click="changeNumber">7</button>
       <button @click="changeNumber">8</button>
       <button @click="changeNumber">9</button>
-      <button @click="changeNumber">
-        <Icon iconName="date" />今天
-      </button>
+      <button @click="clearNumber">清空</button>
       <button @click="changeNumber">4</button>
       <button @click="changeNumber">5</button>
       <button @click="changeNumber">6</button>
@@ -33,6 +31,7 @@
 </template>
 
 <script>
+import contNumber from "@/lib/cont.js";
 export default {
   data() {
     return {
@@ -45,6 +44,63 @@ export default {
     changeInput(event) {
       this.$store.commit("changeNotes", event.target.value);
     },
+    clearNumber() {
+      this.output = "0";
+    },
+    // changeNumber(event) {
+    //   const { output } = this;
+    //   const value = event.target.innerText;
+    //   const lastIndex = output.length - 1;
+    //   if (output[lastIndex] === "+" || output[lastIndex] === "-") {
+    //     this.cont = "完成";
+    //   }
+    //   if ("0123456789.".indexOf(value) >= 0) {
+    //     if (output.indexOf("-") >= 0 || output.indexOf("+") >= 0) {
+    //       this.cont = "=";
+    //     }
+    //     if (output === "0") {
+    //       if (value === "0") {
+    //         return;
+    //       } else {
+    //         this.output = value;
+    //         return;
+    //       }
+    //     }
+    //     if (value === ".") {
+    //       if (output.indexOf(".") >= 0) {
+    //         if (output.indexOf("+") >= 0) {
+    //           const a = output.split("+");
+    //           if (a[1] === "") {
+    //             return;
+    //           } else if (a[1].indexOf(".") < 0) {
+    //             this.output += value;
+    //             return;
+    //           }
+    //         } else if (output.indexOf("-") >= 0) {
+              
+    //         }
+    //       } else if (output[lastIndex] === "+" || output[lastIndex] === "-") {
+    //         return;
+    //       } else {
+    //         this.output += value;
+    //       }
+    //     } else {
+    //       this.output += value;
+    //     }
+    //   }
+    //   if ("-+".indexOf(value) >= 0) {
+    //     if (output.indexOf("+") >= 0 || output.indexOf("-") >= 0) {
+    //       if (output[lastIndex] === "+" || output[lastIndex] === "-") {
+    //         this.output = output.slice(0, -1) + value;
+    //       } else {
+    //         this.output = contNumber(output) + value;
+    //         this.cont = "完成";
+    //       }
+    //     } else {
+    //       this.output += value;
+    //     }
+    //   }
+    // },
     remove() {
       if (this.output[this.output.length - 2] === ".") {
         this.output = this.output.slice(0, this.output.length - 2);
@@ -56,95 +112,17 @@ export default {
         }
       }
     },
-    // changeNumber(event) {
-    //   const { output } = this;
-    //   const value = event.target.innerText;
-    //   const lastIndex = output.length - 1;
-    //   if ("0123456789.".indexOf(value)) {
-    //     if (output === "0" && value === "0") {
-    //       return;
-    //     }
-    //     if (value === "." && output.indexOf(".") >= 0) {
-    //       if (output.indexOf("+") > 0 || output.indexOf("-") > 0) {
-    //         const a = output.split("+");
-    //         console.log(a.length)
-    //         if (a.length===1) {
-              
-    //         }
-    //       } else {
-    //         return;
-    //       }
-    //     }
-    //     this.output += value;
-    //   }
-
-      // if ("+-".indexOf(value) >= 0) {
-      //   let a = output.split(value);
-      //   if (".".indexOf(a[0]) >= 0 || ".".indexOf(a[1]) >= 0) {
-      //     return;
-      //   } else {
-      //     if (value === "+" && output.indexOf(value) >= 1) {
-      //       let contList = output.split("+");
-      //       this.output = (
-      //         parseFloat(contList[0]) + parseFloat(contList[1])
-      //       ).toString();
-      //       this.cont = "完成";
-      //     } else if (value === "-" && output.indexOf(value) >= 1) {
-      //       let contList = output.split("-");
-      //       this.output = (
-      //         parseFloat(contList[0]) - parseFloat(contList[1])
-      //       ).toString();
-      //       this.cont = "完成";
-      //     }
-      //   }
-      // }
-      // if (
-      //   lastIndex >= output.indexOf("+") ||
-      //   lastIndex >= output.indexOf("-")
-      // ) {
-      //   this.cont = "=";
-      // }
-      // if (".+-".indexOf(output[lastIndex]) >= 0) {
-      //   if (".+-".indexOf(value) >= 0) {
-      //     this.output = output.slice(0, -1) + value;
-      //   } else {
-      //     if (value !== "0") {
-      //       this.output += value;
-      //     }
-      //   }
-      // } else {
-      //   if (output === "0") {
-      //     if (value === "0") {
-      //       return;
-      //     } else if (value === ".") {
-      //       this.output += value;
-      //     } else {
-      //       this.output = value;
-      //     }
-      //   } else {
-
-      //     this.output += value;
-      //   }
-      // }
-    // },
     commit() {
       if (this.cont === "=") {
         const { output } = this;
-        if (output.indexOf("-") >= 1) {
-          const contList = output.split("-");
-          this.output = (
-            parseFloat(contList[0]) - parseFloat(contList[1])
-          ).toString();
-          this.cont = "完成";
-          console.log(this.cont);
-        } else {
-          const contList = output.split("+");
-          this.output = (
-            parseFloat(contList[0]) + parseFloat(contList[1])
-          ).toString();
-          this.cont = "完成";
-          console.log(this.cont);
-        }
+        this.output = contNumber(output);
+        this.cont = "完成";
+      } else if (this.cont === "完成") {
+        this.output = contNumber(this.output);
+        this.$store.commit("changeNumber", this.output);
+        this.$store.commit("changeAddToggle");
+        this.$store.commit("changeCurrentKind", undefined);
+        
       }
     }
   }
@@ -157,13 +135,12 @@ export default {
   display: flex;
   align-items: center;
   background: $color-numberPad;
-  padding: 0 16px;
+  padding: 8px 16px;
   width: 100vw;
   input {
     background: transparent;
     border: none;
     flex-grow: 1;
-
     padding: 6px 3px;
   }
 
@@ -185,7 +162,8 @@ export default {
   .output {
     padding: 5px 16px;
     text-align: right;
-    border: 1px solid red;
+    box-shadow: inset 0 3px 3px -3px fade-out(#000000, 0.65),
+      inset 0 -3px 3px -3px fade-out(#000000, 0.65);
     font-family: Consolas, monospace;
     background: $color-numberPad;
   }

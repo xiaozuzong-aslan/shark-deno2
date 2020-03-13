@@ -1,5 +1,5 @@
-export default
-    [
+export default {
+    expense:[
         { name: "repast", zhName: "餐饮" },
         { name: "shopping", zhName: "购物" },
         { name: "Daily", zhName: "日常" },
@@ -33,4 +33,7 @@ export default
         { name: "ticket", zhName: "彩票" },
         { name: "wine", zhName: "烟酒" },
         { name: "setting", zhName: "设置" }
-    ]
+    ],
+    income:[]
+}
+    

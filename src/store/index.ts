@@ -10,7 +10,8 @@ export default new Vuex.Store({
       currentKind: undefined, //当前选择的类型，取消按钮时需要变成空字符，
       type: "-",
       notes: "",
-      number:''
+      number:'',
+      createAt:new Date()
     }
   },
   mutations: {
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     },
     changeNumber(state,number){
       state.addDate.number = number
+      state.addDate.createAt = new Date()
     }
   },
   actions: {},

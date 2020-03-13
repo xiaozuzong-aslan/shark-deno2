@@ -1,28 +1,44 @@
 <template>
-  <div class="kind">
-    <div class="item-wrap" v-for="item in kindList" :key="item.name" @click="chooseKind(item.name)">
-      <div class="item" :class="{selected:item.name === currentKind}">
-        <Icon :iconName="item.name" />
-        <span>{{item.zhName}}</span>
+  <div class="container">
+    <div class="kind" v-if="changeType==='-'">
+      <div
+        class="item-wrap"
+        v-for="item in kindList"
+        :key="item.name"
+        @click="chooseKind(item.name)"
+      >
+        <div class="item" :class="{selected:item.name === currentKind}">
+          <Icon :iconName="item.name" />
+          <span>{{item.zhName}}</span>
+        </div>
       </div>
     </div>
+    <div></div>
   </div>
 </template>
 
 <script>
 import addDataSource from "@/lib/addDataSource.js";
+console.log(addDataSource)
 export default {
-  
   data() {
     return {
-      kindList: addDataSource,
-      currentKind: this.$store.state.addDate.currentKind
+      kindList: addDataSource.expense
+      // currentKind: this.$store.state.addDate.currentKindzzA
     };
   },
   methods: {
     chooseKind(kind) {
-      this.currentKind = kind
-      this.$store.commit('changeCurrentKind',kind)
+      this.$store.commit("changeCurrentKind", kind);
+    }
+  },
+  computed: {
+    currentKind() {
+      return this.$store.state.addDate.currentKind;
+    },
+    changeType(){
+      console.log(this.$store.state.addDate.type)
+      return this.$store.state.addDate.type
     }
   }
 };
