@@ -13,32 +13,54 @@
         </div>
       </div>
     </div>
-    <div></div>
+    <div class="kind" v-else>
+      <div
+        class="item-wrap"
+        v-for="item in kindList"
+        :key="item.name"
+        @click="chooseKind(item.name)"
+      >
+        <div class="item" :class="{selected:item.name === currentKind}">
+          <Icon :iconName="item.name" />
+          <span>{{item.zhName}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import addDataSource from "@/lib/addDataSource.js";
-console.log(addDataSource)
+
 export default {
   data() {
     return {
-      kindList: addDataSource.expense
-      // currentKind: this.$store.state.addDate.currentKindzzA
     };
   },
   methods: {
     chooseKind(kind) {
+      if(kind=='setting'){
+        this.$router.push('/edit')
+        return
+      }
       this.$store.commit("changeCurrentKind", kind);
     }
   },
   computed: {
-    currentKind() {
-      return this.$store.state.addDate.currentKind;
+    kindList(){
+      const type = this.$store.state.auth.addDate.type;
+      if(type==='-'){
+        return addDataSource.expense
+      }else{
+        return addDataSource.income
+      }
     },
-    changeType(){
-      console.log(this.$store.state.addDate.type)
-      return this.$store.state.addDate.type
+    currentKind() {
+      return this.$store.state.auth.addDate.currentKind;
+    },
+    changeType() {
+      
+      return this.$store.state.auth.addDate.type;
     }
   }
 };
@@ -50,13 +72,16 @@ export default {
   display: flex;
   flex-wrap: wrap;
   height: 95vh;
+  padding-bottom: 10px;
   overflow: auto;
+  align-content: flex-start;
   .item-wrap {
     width: 25vw;
     height: 25vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    
     .item {
       display: flex;
       flex-direction: column;
@@ -72,7 +97,7 @@ export default {
       svg {
         width: 36px;
         height: 36px;
-        // color: ;
+        
       }
     }
   }

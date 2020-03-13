@@ -24,6 +24,11 @@ const routes = [
     path: '/add',
     name: 'Add',
     component: ()=>import('../views/Add.vue')
+  },
+  {
+    path:'/edit',
+    name:'Edit',
+    component:()=>import('../views/Edit.vue')
   }
   // {
   //   path: '/about',

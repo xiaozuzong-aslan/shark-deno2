@@ -123,7 +123,9 @@ export default {
         this.output = contNumber(this.output);
         this.$store.commit("changeNumber", this.output);
         this.$store.commit("changeAddToggle");
+        this.$store.commit('saveData')
         this.$store.commit("changeCurrentKind", undefined);
+        
         
       }
     }

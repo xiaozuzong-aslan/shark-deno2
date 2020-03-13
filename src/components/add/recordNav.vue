@@ -15,7 +15,7 @@
 export default {
   data() {
     return {
-      type: this.$store.state.addDate.type
+      type: this.$store.state.auth.addDate.type
     };
   },
 

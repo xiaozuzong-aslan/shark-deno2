@@ -31,7 +31,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx", "src/lib/addDataSource.js"
+    "tests/**/*.tsx", "src/lib/addDataSource.js", "src/main.ts"
   ],
   "exclude": [
     "node_modules"

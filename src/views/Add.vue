@@ -30,11 +30,11 @@ export default {
   
   computed: {
     toggle() {
-      return this.$store.state.addDate.addToggle;
+      return this.$store.state.auth.addDate.addToggle;
       
     },
     xx() {
-      return this.$store.state.addDate.currentKind;
+      return this.$store.state.auth.addDate.currentKind;
     }
   }
 };
