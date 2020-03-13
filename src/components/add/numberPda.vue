@@ -47,60 +47,62 @@ export default {
     clearNumber() {
       this.output = "0";
     },
-    // changeNumber(event) {
-    //   const { output } = this;
-    //   const value = event.target.innerText;
-    //   const lastIndex = output.length - 1;
-    //   if (output[lastIndex] === "+" || output[lastIndex] === "-") {
-    //     this.cont = "完成";
-    //   }
-    //   if ("0123456789.".indexOf(value) >= 0) {
-    //     if (output.indexOf("-") >= 0 || output.indexOf("+") >= 0) {
-    //       this.cont = "=";
-    //     }
-    //     if (output === "0") {
-    //       if (value === "0") {
-    //         return;
-    //       } else {
-    //         this.output = value;
-    //         return;
-    //       }
-    //     }
-    //     if (value === ".") {
-    //       if (output.indexOf(".") >= 0) {
-    //         if (output.indexOf("+") >= 0) {
-    //           const a = output.split("+");
-    //           if (a[1] === "") {
-    //             return;
-    //           } else if (a[1].indexOf(".") < 0) {
-    //             this.output += value;
-    //             return;
-    //           }
-    //         } else if (output.indexOf("-") >= 0) {
-              
-    //         }
-    //       } else if (output[lastIndex] === "+" || output[lastIndex] === "-") {
-    //         return;
-    //       } else {
-    //         this.output += value;
-    //       }
-    //     } else {
-    //       this.output += value;
-    //     }
-    //   }
-    //   if ("-+".indexOf(value) >= 0) {
-    //     if (output.indexOf("+") >= 0 || output.indexOf("-") >= 0) {
-    //       if (output[lastIndex] === "+" || output[lastIndex] === "-") {
-    //         this.output = output.slice(0, -1) + value;
-    //       } else {
-    //         this.output = contNumber(output) + value;
-    //         this.cont = "完成";
-    //       }
-    //     } else {
-    //       this.output += value;
-    //     }
-    //   }
-    // },
+    changeNumber(event) {
+      const { output } = this;
+      const value = event.target.innerText;
+      const lastIndex = output.length - 1;
+      if (output[lastIndex] === "+" || output[lastIndex] === "-") {
+        this.cont = "完成";
+      }
+      if ("0123456789.".indexOf(value) >= 0) {
+        if (output.indexOf("-") >= 0 || output.indexOf("+") >= 0) {
+          this.cont = "=";
+        }
+        if (output === "0") {
+          if (value === "0") {
+            return;
+          } else if(value==='.'){
+            this.output += value
+            return
+          }
+          else{
+            this.output = value;
+            return;
+          }
+        }
+        if (value === ".") {
+          if (output.indexOf(".") >= 0) {
+            if (output.indexOf("+") >= 0) {
+              const a = output.split("+");
+              if (a[1] === "") {
+                return;
+              } else if (a[1].indexOf(".") < 0) {
+                this.output += value;
+                return;
+              }
+            } 
+          } else if (output[lastIndex] === "+" || output[lastIndex] === "-") {
+            return;
+          } else {
+            this.output += value;
+          }
+        } else {
+          this.output += value;
+        }
+      }
+      if ("-+".indexOf(value) >= 0) {
+        if (output.indexOf("+") >= 0 || output.indexOf("-") >= 0) {
+          if (output[lastIndex] === "+" || output[lastIndex] === "-") {
+            this.output = output.slice(0, -1) + value;
+          } else {
+            this.output = contNumber(output) + value;
+            this.cont = "完成";
+          }
+        } else {
+          this.output += value;
+        }
+      }
+    },
     remove() {
       if (this.output[this.output.length - 2] === ".") {
         this.output = this.output.slice(0, this.output.length - 2);
