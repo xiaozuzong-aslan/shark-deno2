@@ -9,9 +9,10 @@ const state = {
     DateList: [] as RecordItem[]
 }
 const getters = {
-    DateList(state: any) {
+    DateList() {
+        const month = dayjs(state.currentTime).format('MM')
         const items = {} as any;
-        const list = clone(state.DateList).sort(
+        const list = clone(state.DateList).filter(item => dayjs(item.data.createdAt).format('MM') === month).sort(
             (b: RecordItem, a: RecordItem) =>
                 dayjs(a.data.createdAt).valueOf() - dayjs(b.data.createdAt).valueOf()
         ) as RecordItem[];
@@ -28,7 +29,7 @@ const getters = {
     monthSpend() {
         const month = dayjs(state.currentTime).format('MM')
         const spendList = clone(state.DateList).filter(item => item.data.type === '-' && dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
-        const incomeList = clone(state.DateList).filter(item => item.data.type === '+'&& dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
+        const incomeList = clone(state.DateList).filter(item => item.data.type === '+' && dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
         return { spendList, incomeList }
     }
 }
@@ -58,8 +59,8 @@ const mutations = {
         state.addDate.number = number
         state.addDate.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss')
     },
-    changeCurrentMoth(state: any, date: string) {
-        state.currentMoth = date
+    currentTime(state: any, date: string) {
+        state.currentTime = date
     }
 }
 

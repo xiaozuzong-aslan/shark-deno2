@@ -2,7 +2,7 @@
   <Layout>
     <div class="detail">
       <detail-nav @monthClick="showDatePad" />
-      <div class="content">
+      <div class="content" v-if="JSON.stringify(DateList)!=='{}'">
         <div class="items" v-for="(items,index) in DateList" :key="index">
           <div class="title">
             <span class="date">{{beautify(index)}}</span>
@@ -23,13 +23,11 @@
           </ul>
         </div>
       </div>
-      <div class="changeMoth" v-if="changeMoth">
-        <!-- <ul>
-          <li v-for="i in 12" :key="i" :name="i">{{i}}</li>
-        </ul>-->
-        <label for="bday">
-          <input type="date" id="bday" name="bday" v-model="now" @change="changeMonth" />
-        </label>
+      <div class="content-none" v-else>未查询到该月份的数据呀</div>
+      <div class="changeMoth" v-if="changeMoth" @click="showDatePad">
+        <ul>
+          <li v-for="i in 12" :key="i" :name="i" @click="changeMonth(i)">{{i+'月'}}</li>
+        </ul>
       </div>
     </div>
   </Layout>
@@ -42,8 +40,7 @@ import dayjs from "dayjs";
 export default {
   data() {
     return {
-      changeMoth: false,
-      now: dayjs().format("YYYY-MM-DD")
+      changeMoth: false
     };
   },
   components: {
@@ -54,6 +51,7 @@ export default {
   },
   computed: {
     DateList() {
+      console.log(this.$store.getters.DateList)
       return this.$store.getters.DateList;
     }
   },
@@ -81,8 +79,11 @@ export default {
     showDatePad() {
       this.changeMoth = !this.changeMoth;
     },
-    changeMonth() {
-      console.log(this.now);
+    changeMonth(month) {
+      const newTime = dayjs()
+        .month(month - 1)
+        .format("YYYY-MM-DD");
+      this.$store.commit("currentTime", newTime);
     }
   }
 };
@@ -90,6 +91,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
+.content-none {
+  text-align: center;
+  padding: 20px 0;
+}
 .content {
   height: 70vh;
   overflow: auto;
@@ -131,10 +136,27 @@ export default {
 }
 .changeMoth {
   position: fixed;
-  bottom: 0;
-  height: 20vh;
+  height: 100vh;
   width: 100vw;
-  overflow: auto;
-  border: 1px solid red;
+  bottom: 0;
+
+  // overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(102, 102, 102, 0.3);
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: rgba(102, 102, 102, 0.8);
+    li {
+      width: 33.33vw;
+      padding: 10px 3px;
+      border: 1px solid rgba(#d2d3d7, 0.5);
+      text-align: center;
+      color: #fff;
+    }
+  }
 }
 </style>

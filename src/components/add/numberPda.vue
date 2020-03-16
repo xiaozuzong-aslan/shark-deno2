@@ -61,11 +61,10 @@ export default {
         if (output === "0") {
           if (value === "0") {
             return;
-          } else if(value==='.'){
-            this.output += value
-            return
-          }
-          else{
+          } else if (value === ".") {
+            this.output += value;
+            return;
+          } else {
             this.output = value;
             return;
           }
@@ -80,7 +79,7 @@ export default {
                 this.output += value;
                 return;
               }
-            } 
+            }
           } else if (output[lastIndex] === "+" || output[lastIndex] === "-") {
             return;
           } else {
@@ -119,12 +118,21 @@ export default {
         const { output } = this;
         this.output = contNumber(output);
         this.cont = "完成";
-      } else if (this.cont === "完成") {
+        return;
+      }
+      if (this.cont === "完成") {
         this.output = contNumber(this.output);
+        if (parseInt(this.output) === 0) {
+          alert("备注可以不写,数字必须填哦");
+          return;
+        }
         this.$store.commit("changeNumber", this.output);
         this.$store.commit("changeAddToggle");
-        this.$store.commit('saveData')
-        this.$store.commit("changeCurrentKind", {iconName:undefined,textName:undefined});
+        this.$store.commit("saveData");
+        this.$store.commit("changeCurrentKind", {
+          iconName: undefined,
+          textName: undefined
+        });
       }
     }
   }

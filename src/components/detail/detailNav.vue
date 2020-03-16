@@ -14,7 +14,7 @@
         <div class="amount">{{monthSpend.spendList}}</div>
       </div>
       <div class="income">
-        <div class="text">支出</div>
+        <div class="text">收入</div>
         <div class="amount">{{monthSpend.incomeList}}</div>
       </div>
     </div>

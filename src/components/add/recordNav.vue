@@ -22,7 +22,13 @@ export default {
   methods: {
     changeAddToggle() {
       this.$store.commit("changeAddToggle");
-      this.$store.commit("changeCurrentKind", {iconName:undefined,textName:undefined});
+      this.$store.commit("changeCurrentKind", {
+        iconName: undefined,
+        textName: undefined
+      });
+      setTimeout(() => {
+        this.$router.push("/detail");
+      }, 400);
     },
     changeType(type) {
       this.type = type;
