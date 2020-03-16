@@ -1,16 +1,39 @@
 import createId from '@/lib/createId'
+import dayjs from 'dayjs'
+import clone from '@/lib/clone';
 
 const state = {
-    addDate: { addToggle: false, currentKind: undefined, type: "-", notes: "", number: '', createdAt: undefined } as addDate,
+    addDate: { currentKind: { iconName: undefined, textName: undefined }, type: "-", notes: "", number: '', createdAt: undefined } as addDate,
+    addToggle: false,
+    currentTime: dayjs().format('YYYY-MM-DD'),
     DateList: [] as RecordItem[]
 }
 const getters = {
     DateList(state: any) {
-        return state.DateList
+        const items = {} as any;
+        const list = clone(state.DateList).sort(
+            (b: RecordItem, a: RecordItem) =>
+                dayjs(a.data.createdAt).valueOf() - dayjs(b.data.createdAt).valueOf()
+        ) as RecordItem[];
+        list.forEach(element => {
+            const string = element.data.createdAt!.split(" ")[0]
+            if (items[string]) {
+                items[string.split(" ")[0]].push(element)
+            } else {
+                (items[string.split(" ")[0]] = [element]);
+            }
+        });
+        return items;
+    },
+    monthSpend() {
+        const month = dayjs(state.currentTime).format('MM')
+        const spendList = clone(state.DateList).filter(item => item.data.type === '-' && dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
+        const incomeList = clone(state.DateList).filter(item => item.data.type === '+'&& dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
+        return { spendList, incomeList }
     }
 }
 const mutations = {
-    fetchDate(state: any) {
+    fetchData(state: any) {
         state.DateList = JSON.parse(window.localStorage.getItem('dataSource') || '[]')
     },
     saveData(state: any) {
@@ -20,11 +43,9 @@ const mutations = {
         window.localStorage.setItem('dataSource', JSON.stringify(state.DateList))
     },
     changeAddToggle(state: any) {
-        state.addDate.addToggle = !state.addDate.addToggle;
+        state.addToggle = !state.addToggle;
     },
-    changeCurrentKind(state: any, currentKind?: string) {
-        console.log(currentKind)
-        console.log('明明有提交')
+    changeCurrentKind(state: any, currentKind: currentKind) {
         state.addDate.currentKind = currentKind;
     },
     changeType(state: any, type: string) {
@@ -35,7 +56,10 @@ const mutations = {
     },
     changeNumber(state: any, number: string) {
         state.addDate.number = number
-        state.addDate.createdAt = JSON.stringify(new Date())
+        state.addDate.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss')
+    },
+    changeCurrentMoth(state: any, date: string) {
+        state.currentMoth = date
     }
 }
 

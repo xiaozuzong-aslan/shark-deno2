@@ -1,27 +1,47 @@
 <template>
   <div class="detail-nav">
     <div class="time">
-      <div class="year">2020</div>
-      <div class="month">
-        3月
+      <div class="year">{{time.year}}</div>
+      <div class="month" @click="monthClick">
+        {{time.month}}月 
         <Icon iconName="extends" />
+       
       </div>
     </div>
     <div class="type">
       <div class="expense">
         <div class="text">支出</div>
-        <div class="amount">133452</div>
+        <div class="amount">{{monthSpend.spendList}}</div>
       </div>
       <div class="income">
         <div class="text">支出</div>
-        <div class="amount">11111ssssss41</div>
+        <div class="amount">{{monthSpend.incomeList}}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import dayjs from 'dayjs'
+
+
+
+export default {
+  computed:{
+    time(){
+      const time = dayjs(this.$store.state.auth.currentTime)
+      return {year:time.$y,month:time.$M+1}
+    },
+     monthSpend(){
+      return this.$store.getters.monthSpend
+    },
+  },
+ methods:{
+   monthClick(){
+     this.$emit('monthClick')
+   }
+ }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -31,7 +51,7 @@ export default {};
   padding: 5px 16px;
   font-size: 12px;
   background: $color-yellow;
-  color: gray;
+  color: #8E8E8E;
   .type {
     display: flex;
     flex-grow: 1;

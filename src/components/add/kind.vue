@@ -1,11 +1,12 @@
 <template>
   <div class="container">
+    
     <div class="kind" v-if="changeType==='-'">
       <div
         class="item-wrap"
         v-for="item in kindList"
         :key="item.name"
-        @click="chooseKind(item.name)"
+        @click="chooseKind($event,item)"
       >
         <div class="item" :class="{selected:item.name === currentKind}">
           <Icon :iconName="item.name" />
@@ -18,7 +19,7 @@
         class="item-wrap"
         v-for="item in kindList"
         :key="item.name"
-        @click="chooseKind(item.name)"
+        @click="chooseKind($event,item)"
       >
         <div class="item" :class="{selected:item.name === currentKind}">
           <Icon :iconName="item.name" />
@@ -30,7 +31,7 @@
 </template>
 
 <script>
-import addDataSource from "@/lib/addDataSource.js";
+import addDataSource from "@/lib/addDataSource";
 
 export default {
   data() {
@@ -38,12 +39,12 @@ export default {
     };
   },
   methods: {
-    chooseKind(kind) {
-      if(kind=='setting'){
+    chooseKind(event,kind) {
+      if(kind.name=='setting'){
         this.$router.push('/edit')
         return
       }
-      this.$store.commit("changeCurrentKind", kind);
+      this.$store.commit("changeCurrentKind", {iconName:kind.name,textName:kind.zhName});
     }
   },
   computed: {
@@ -56,7 +57,7 @@ export default {
       }
     },
     currentKind() {
-      return this.$store.state.auth.addDate.currentKind;
+      return this.$store.state.auth.addDate.currentKind.iconName
     },
     changeType() {
       

@@ -27,14 +27,13 @@ export default {
      
     };
   },
-  
+
   computed: {
     toggle() {
-      return this.$store.state.auth.addDate.addToggle;
-      
+      return this.$store.state.auth.addToggle;
     },
     xx() {
-      return this.$store.state.auth.addDate.currentKind;
+      return this.$store.state.auth.addDate.currentKind.iconName;
     }
   }
 };

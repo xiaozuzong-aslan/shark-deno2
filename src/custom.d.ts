@@ -5,10 +5,14 @@ type RecordItem = {
     data: addDate;
 }
 type addDate = {
-    addToggle: boolean;
-    currentKind?: string;
+    currentKind?: currentKind;
     type: string;
     notes: string;
     number: string;
     createdAt?: string;
 }
+type currentKind = {
+    iconName?: string;
+    textName?: string;
+}
+

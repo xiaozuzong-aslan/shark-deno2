@@ -23,7 +23,7 @@ export default {
         { name: "fix", zhName: "维修" },
         { name: "friends", zhName: "亲友" },
         { name: "gift", zhName: "礼品" },
-        { name: "Giftmoney", zhName: "礼金" },
+        { name: "Giftmoney", zhName:"礼金" },
         { name: "Home", zhName: "居家" },
         { name: "Medical", zhName: "医疗" },
         { name: "Office", zhName: "办公" },

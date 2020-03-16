@@ -124,9 +124,7 @@ export default {
         this.$store.commit("changeNumber", this.output);
         this.$store.commit("changeAddToggle");
         this.$store.commit('saveData')
-        this.$store.commit("changeCurrentKind", undefined);
-        
-        
+        this.$store.commit("changeCurrentKind", {iconName:undefined,textName:undefined});
       }
     }
   }
