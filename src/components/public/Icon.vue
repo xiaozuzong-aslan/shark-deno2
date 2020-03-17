@@ -25,7 +25,9 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 svg {
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   use {
     vertical-align: -0.15em;
     fill: currentColor;

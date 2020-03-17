@@ -12,8 +12,7 @@
             </div>
           </div>
           <ul>
-            <li v-for="item in items" :key="item.id">
-              <!--  -->
+            <li v-for="item in items" :key="item.id" @click="goEdit(item.id)">
               <Icon :iconName="item.data.currentKind.iconName" />
               <div class="text">
                 <span>{{item.data.currentKind.textName}}</span>
@@ -52,6 +51,7 @@ export default {
   computed: {
     DateList() {
       console.log(this.$store.getters.DateList)
+      
       return this.$store.getters.DateList;
     }
   },
@@ -84,6 +84,9 @@ export default {
         .month(month - 1)
         .format("YYYY-MM-DD");
       this.$store.commit("currentTime", newTime);
+    },
+    goEdit(id){
+      this.$router.push(`/edit/${id}`)
     }
   }
 };
@@ -96,9 +99,8 @@ export default {
   padding: 20px 0;
 }
 .content {
-  height: 70vh;
+  max-height: 80vh;
   overflow: auto;
-
   .items {
     .title {
       box-shadow: 0 2px 2px -2px fade-out(#8e8e8e, 0.2);
@@ -107,6 +109,7 @@ export default {
       justify-content: space-between;
       font-size: 12px;
       color: #8e8e8e;
+      
       .Subtotal {
         .spend {
           margin-right: 3px;
@@ -120,6 +123,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         box-shadow: 0 1px 1px -1px fade-out(#8e8e8e, 0.6);
+        
         svg {
           width: 20px;
           height: 20px;

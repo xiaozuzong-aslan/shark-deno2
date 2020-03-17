@@ -133,6 +133,9 @@ export default {
           iconName: undefined,
           textName: undefined
         });
+        setTimeout(() => {
+        this.$router.push("/detail");
+      }, 400);
       }
     }
   }

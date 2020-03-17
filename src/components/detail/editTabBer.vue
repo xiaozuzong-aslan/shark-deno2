@@ -1,40 +1,15 @@
 <template>
-  <div class="edit">
-    <div class="edit-nav">
-      <div class="back" @click="goBack">
-        <Icon iconName="left" />
-      </div>
-      <div class="title">
-        <div>
-          <Icon iconName="gift" />
-        </div>
-        <span>{{dataList.data.currentKind.textName}}</span>
-      </div>
-      <div class="button">分享</div>
+  <div class="edit-nav">
+    <div class="back" @click="goBack">
+      <Icon iconName="left" />
     </div>
-    <div class="info">
-      <div class="type">
-        <span>类型</span>
-        {{dataList.data.type ==="-" ? '支出':'收入'}}
+    <div class="title">
+      <div>
+        <Icon iconName="gift" />
       </div>
-      <div class="amount">
-        <span>金额</span>
-        {{dataList.data.number}}
-      </div>
-      <div class="date">
-        <span>日期</span>
-        {{dataList.data.createdAt}}
-      </div>
-      <div class="notes">
-        <span>备注</span>
-        {{dataList.data.notes}}
-      </div>
+      <span>{{dataList.data.currentKind.textName}}</span>
     </div>
-
-    <div class="wrap">
-      <button class="left">编辑</button>
-      <button>删除</button>
-    </div>
+    <div class="button">分享</div>
   </div>
 </template>
 

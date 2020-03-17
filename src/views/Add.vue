@@ -27,7 +27,6 @@ export default {
      
     };
   },
-
   computed: {
     toggle() {
       return this.$store.state.auth.addToggle;

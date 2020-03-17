@@ -7,28 +7,28 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect:'/detail'
+    redirect: '/detail'
   },
   {
     path: '/chart',
     name: 'Chart',
     component: Chart
   },
- 
+
   {
     path: '/detail',
     name: 'Detail',
-    component: ()=>import('../views/Detail.vue')
+    component: () => import('../views/Detail.vue')
   },
   {
     path: '/add',
     name: 'Add',
-    component: ()=>import('../views/Add.vue')
+    component: () => import('../views/Add.vue')
   },
   {
-    path:'/edit',
-    name:'Edit',
-    component:()=>import('../views/Edit.vue')
+    path: '/edit/:id',
+    name: 'Edit',
+    component: () => import('../views/Edit.vue')
   }
   // {
   //   path: '/about',
@@ -42,8 +42,8 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  linkActiveClass:'actived',
-  
+  linkActiveClass: 'actived',
+
 })
 
 export default router
