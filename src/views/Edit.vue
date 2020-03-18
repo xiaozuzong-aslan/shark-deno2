@@ -9,7 +9,7 @@
     </div>
     <div class="wrap" v-else>
       <button class="left" @click="edit">编辑</button>
-      <button>删除</button>
+      <button @click="remove">删除</button>
     </div>
   </div>
 </template>
@@ -48,6 +48,15 @@ export default {
       this.dataList = this.$store.state.auth.DateList.filter(
         item => item.id === id
       )[0];
+    },
+    remove() {
+      const result = confirm("删除后无法恢复哦");
+      if (result) {
+        const newDateList = this.$store.state.auth.DateList.filter(item => item.id !== this.dataList.id);
+        console.log(newDateList)
+        this.$store.commit("changeDateList", newDateList);
+        this.$router.push('/detail')
+      }
     },
     save() {
       const newDateList = [
