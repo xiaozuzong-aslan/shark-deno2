@@ -1,27 +1,14 @@
 <template>
   <div class="edit">
-    <EditNav :navParams="dataList"/>
-    <div class="info">
-      <div class="type">
-        <span>类型</span>
-        {{dataList.data.type ==="-" ? '支出':'收入'}}
-      </div>
-      <div class="amount">
-        <span>金额</span>
-        {{dataList.data.number}}
-      </div>
-      <div class="date">
-        <span>日期</span>
-        {{dataList.data.createdAt}}
-      </div>
-      <div class="notes">
-        <span>备注</span>
-        {{dataList.data.notes}}
-      </div>
+    <EditNav :value="dataList" />
+    <EditInput :value.sync="dataList" v-if="editToggle" />
+    <EditInfo :value="dataList" v-else />
+    <div class="editButton" v-if="editToggle">
+      <button class="left" @click="cancel">取消</button>
+      <button @click="save">保存</button>
     </div>
-
-    <div class="wrap">
-      <button class="left">编辑</button>
+    <div class="wrap" v-else>
+      <button class="left" @click="edit">编辑</button>
       <button>删除</button>
     </div>
   </div>
@@ -29,13 +16,18 @@
 
 <script>
 import EditNav from "@/components/edit/editNav.vue";
+import EditInfo from "@/components/edit/editInfo.vue";
+import EditInput from "@/components/edit/editInput.vue";
 export default {
   components: {
-    EditNav
+    EditNav,
+    EditInfo,
+    EditInput
   },
   data() {
     return {
-      dataList: null
+      dataList: null,
+      editToggle: false
     };
   },
   created() {
@@ -44,7 +36,30 @@ export default {
     this.dataList = this.$store.state.auth.DateList.filter(
       item => item.id === id
     )[0];
-    console.log(this.dataList);
+  },
+  methods: {
+    edit() {
+      this.editToggle = !this.editToggle;
+      alert("编辑完记得保存哦");
+    },
+    cancel() {
+      this.editToggle = !this.editToggle;
+      const id = this.$route.params.id;
+      this.dataList = this.$store.state.auth.DateList.filter(
+        item => item.id === id
+      )[0];
+    },
+    save() {
+      const newDateList = [
+        ...this.$store.state.auth.DateList.filter(
+          item => item.id !== this.dataList.id
+        ),
+        this.dataList
+      ];
+      this.$store.commit("changeDateList", newDateList);
+      this.editToggle = !this.editToggle;
+      alert("已保存");
+    }
   }
 };
 </script>
@@ -72,16 +87,18 @@ export default {
     }
   }
 }
+.editButton {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  padding: 18.5px 0;
+  button {
+    flex-grow: 1;
+    border: none;
+    background: #fff;
+    font-size: 16px;
 
-.info {
-  padding: 10px 16px;
-  flex-grow: 1;
-  div {
-    padding: 10px 0;
-    box-shadow: 0 2px 2px -2px fade-out(#8e8e8e, 0.2);
-    span {
-      color: #8e8e8e;
-      padding-right: 10px;
+    &.left {
+      border-right: 1px solid fade-out(#8e8e8e, 0.7);
     }
   }
 }

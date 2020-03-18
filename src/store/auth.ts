@@ -44,6 +44,9 @@ const mutations = {
         state.DateList.push(data)
         window.localStorage.setItem('dataSource', JSON.stringify(state.DateList))
     },
+    changeDateList(state: any, data: RecordItem[]) {
+        window.localStorage.setItem('dataSource', JSON.stringify(data))
+    },
     changeAddToggle(state: any) {
         state.addToggle = !state.addToggle;
     },

@@ -5,9 +5,9 @@
     </div>
     <div class="title">
       <div>
-        <Icon :iconName="navParams.data.currentKind.iconName" />
+        <Icon :iconName="value.data.currentKind.iconName" />
       </div>
-      <span>{{navParams.data.currentKind.textName}}</span>
+      <span>{{value.data.currentKind.textName}}</span>
     </div>
     <div class="button">分享</div>
   </div>
@@ -16,7 +16,7 @@
 <script>
 export default {
   props: {
-    navParams: {
+    value: {
       type: Object,
       required: true
     }

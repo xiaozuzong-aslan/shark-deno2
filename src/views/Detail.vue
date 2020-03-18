@@ -50,8 +50,6 @@ export default {
   },
   computed: {
     DateList() {
-      console.log(this.$store.getters.DateList)
-      
       return this.$store.getters.DateList;
     }
   },
