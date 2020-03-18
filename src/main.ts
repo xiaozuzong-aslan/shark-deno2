@@ -4,7 +4,9 @@ import router from './router'
 import store from './store'
 import Icon from '@/components/public/Icon.vue';
 import Layout from '@/components/public/layout.vue'
+const echarts  = require('echarts') 
 
+Vue.use(echarts )
 
 Vue.config.productionTip = false
 Vue.component('Icon', Icon)
