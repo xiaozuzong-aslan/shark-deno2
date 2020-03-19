@@ -31,7 +31,8 @@ const getters = {
         const spendList = clone(state.DateList).filter(item => item.data.type === '-' && dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
         const incomeList = clone(state.DateList).filter(item => item.data.type === '+' && dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
         return { spendList, incomeList }
-    }
+    },
+    
 
 }
 const mutations = {
