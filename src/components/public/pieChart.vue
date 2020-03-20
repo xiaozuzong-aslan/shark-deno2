@@ -1,57 +1,24 @@
 
 <template>
-  <div class="chart">
-    <Layout>
-      <div class="chartNav">
-        <div>
-          <button :class="{selected:type==='-'}" @click="changeType('-')">支出</button>
-          <button :class="{selected:type==='+'}" @click="changeType('+')">收入</button>
-        </div>
-      </div>
-      <!-- <div class="chart-warp" v-show="dataList">
-        <div id="pie"></div>
-        <BarChart :dataSource="dataList">
-          <p>{{type==="-"?'支出':'收入'}}排行榜</p>
-        </BarChart>
-      </div> -->
-      <pieChart :value="{dataList,type}"/>
-    </Layout>
+  <div class="chart-warp" v-show="value">
+    <div id="pie"></div>
+    <BarChart :dataSource="value">
+      <p>{{type==="-"?'支出':'收入'}}排行榜</p>
+    </BarChart>
   </div>
 </template>
 
 <script>
 import dayjs from "dayjs";
 import echarts from "echarts";
-import pieChart from "@/components/public/pieChart.vue";
+import BarChart from "@/components/public/BarChart.vue";
 export default {
-  components: {
-    pieChart
-  },
-  name: "Chart",
-  data() {
-    return {
-      dataList: [],
-      type: "-"
-    };
-  },
-  created() {
-    this.$store.commit("fetchData");
-    this.dataList = this.$store.state.auth.DateList.filter(
-      item => item.data.type === this.type
-    );
-  },
-  watch: {
-    type() {
-      this.dataList = this.$store.state.auth.DateList.filter(
-        item => item.data.type === this.type
-      );
-      this.initPie();
-    }
-  },
-  methods: {
-    changeType(type) {
-      this.type = type;
+    props:{
+        value:{
+            type:Array
+        }
     },
+  methods: {
     initPie() {
       var myChart = echarts.init(document.getElementById("pie"));
       var option = {
@@ -69,7 +36,7 @@ export default {
             type: "pie",
             radius: "60%",
             data: [
-              ...this.dataList.map(item => {
+              ...this.value.map(item => {
                 return {
                   value: item.data.number,
                   name: item.data.currentKind.textName
@@ -82,7 +49,6 @@ export default {
       myChart.setOption(option);
     }
   },
-
   mounted() {
     this.initPie();
   }

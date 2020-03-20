@@ -1,40 +1,51 @@
 <template>
   <div id="bar">
-    <slot/>
-    <div class="item" v-for="(item,index) in dataSource" :key="index">
+    <slot />
+    <div class="item" v-for="(item,index) in chartSize" :key="index">
       <div class="title">
         <Icon :iconName="item.data.currentKind.iconName" />
       </div>
       <div class="chart">
-        <p>{{item.data.currentKind.textName}} {{chartSize[index]}}%</p>
-        <div class="column"></div>
+        <p>{{item.data.currentKind.textName}} {{item.data.percent}}%</p>
+        <div class="column" :style="{width:item.data.percent+'px'}"></div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import echarts from "echarts";
 export default {
-    props:{
-        dataSource:{
-            type:Array,
-            required:true
-        }
-    },
-    created(){
-        console.log(this.dataSource)
-    },
-    computed:{
-        chartSize(){
-            const dataList = JSON.parse(JSON.stringify(this.dataSource))
-            console.log(dataList)
-            const total = dataList.map(item=>item.data.percent = ((parseFloat(item.data.number)/this.dataSource.map(item=>item.data.number).reduce((sum,item)=>parseFloat(item)+sum,0))*100).toFixed(2))
-            console.log(total)
-            return total
-        }
+  props: {
+    dataSource: {
+      type: Array,
+      required: true
     }
+  },
+  created() {},
+  computed: {
+    chartSize() {
+      const dataList = JSON.parse(JSON.stringify(this.dataSource));
+      const total = dataList.map(item =>
+        (
+          (parseFloat(item.data.number) /
+            this.dataSource
+              .map(item => item.data.number)
+              .reduce((sum, item) => parseFloat(item) + sum, 0)) *
+          100
+        ).toFixed(2)
+      );
+      let x = 0;
+      dataList.forEach(item => {
+        item.data.percent = total[x];
+        x += 1;
+      });
+      dataList.sort(
+        (a, b) => parseFloat(b.data.percent) - parseFloat(a.data.percent)
+      );
+      return dataList;
+    }
+  }
 };
 </script>
 
@@ -68,7 +79,6 @@ export default {
       padding-left: 10px;
       width: 100%;
       .column {
-          
         width: 10%;
         height: 10px;
         background: $color-yellow;

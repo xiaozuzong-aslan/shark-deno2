@@ -5,7 +5,7 @@
       <record-nav />
       <Kind />
     </div>
-    <NumberPad v-if="xx" />
+    <NumberPad v-if="showPad" />
     <Layout></Layout>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
     toggle() {
       return this.$store.state.auth.addToggle;
     },
-    xx() {
+    showPad() {
       return this.$store.state.auth.addDate.currentKind.iconName;
     }
   }
@@ -39,17 +39,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-@keyframes xxx {
-  0% {
-    transform: none;
-  }
-  100% {
-  }
-}
+
 .record {
   position: fixed;
   transform: translate(0, 100%);
-  transition: transform 0.4s linear;
+  transition: all 0.4s linear;
   background: #fff;
   height: 100vh;
   &.visible {

@@ -5,6 +5,7 @@ import clone from '@/lib/clone';
 const state = {
     addDate: { currentKind: { iconName: undefined, textName: undefined }, type: "-", notes: "", number: '', createdAt: undefined } as addDate,
     addToggle: false,
+    adToggle: true,
     currentTime: dayjs().format('YYYY-MM-DD'),
     DateList: [] as RecordItem[]
 }
@@ -31,9 +32,7 @@ const getters = {
         const spendList = clone(state.DateList).filter(item => item.data.type === '-' && dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
         const incomeList = clone(state.DateList).filter(item => item.data.type === '+' && dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
         return { spendList, incomeList }
-    },
-    
-
+    }
 }
 const mutations = {
     fetchData(state: any) {
@@ -66,7 +65,14 @@ const mutations = {
     },
     currentTime(state: any, date: string) {
         state.currentTime = date
-    }
+    },
+    changeAdToggle(state: any) {
+        setTimeout(() => {
+            state.adToggle = false
+           
+        }, 3000)
+    },
+
 }
 
 export default {
