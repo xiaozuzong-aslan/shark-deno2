@@ -13,12 +13,11 @@
 
 <script>
 export default {
-  data() {
-    return {
-      type: this.$store.state.auth.addDate.type
-    };
+  computed:{
+    type(){
+      return this.$store.state.auth.addDate.type
+    }
   },
-
   methods: {
     changeAddToggle() {
       this.$store.commit("changeAddToggle");
@@ -31,7 +30,6 @@ export default {
       }, 400);
     },
     changeType(type) {
-      this.type = type;
       this.$store.commit("changeType", type);
     }
   }

@@ -1,4 +1,5 @@
 import createId from '@/lib/createId'
+import addDataSource from "@/lib/addDataSource";
 import dayjs from 'dayjs'
 import clone from '@/lib/clone';
 
@@ -7,7 +8,9 @@ const state = {
     addToggle: false,
     adToggle: true,
     currentTime: dayjs().format('YYYY-MM-DD'),
-    DateList: [] as RecordItem[]
+    DateList: [] as RecordItem[],
+    spendKinds: [] as string[],
+    incomeKinds:[] as string[]
 }
 const getters = {
     DateList() {
@@ -32,11 +35,34 @@ const getters = {
         const spendList = clone(state.DateList).filter(item => item.data.type === '-' && dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
         const incomeList = clone(state.DateList).filter(item => item.data.type === '+' && dayjs(item.data.createdAt).format('MM') === month).map(item => item.data.number).reduce((sum, item) => sum + parseFloat(item), 0)
         return { spendList, incomeList }
+    },
+    // getType() {
+    //     return state.addDate.type;
+    // },
+    currentKinds() {
+        if (state.addDate.type === '-') {
+            return state.spendKinds
+        } else {
+            return state.incomeKinds
+        }
     }
 }
 const mutations = {
     fetchData(state: any) {
         state.DateList = JSON.parse(window.localStorage.getItem('dataSource') || '[]')
+    },
+    fetchKindList(state: any) {
+        state.spendKinds = JSON.parse(window.localStorage.getItem('spend') || JSON.stringify(addDataSource.expense));
+        state.incomeKinds = JSON.parse(window.localStorage.getItem('income') || JSON.stringify(addDataSource.income));
+
+    },
+    saveKindList(state: any, newList: string[]) {
+        if (state.addDate.type === '-') {
+            window.localStorage.setItem('spend', JSON.stringify(newList))
+        } else {
+            window.localStorage.setItem('income', JSON.stringify(newList));
+        }
+
     },
     saveData(state: any) {
         const id = createId()
@@ -69,7 +95,7 @@ const mutations = {
     changeAdToggle(state: any) {
         setTimeout(() => {
             state.adToggle = false
-           
+
         }, 3000)
     },
 

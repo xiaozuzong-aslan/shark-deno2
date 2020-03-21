@@ -51,6 +51,9 @@ export default {
         .filter(item => item.data.type === "+")
         .reduce((sum, item) => sum + parseFloat(item.data.number), 0);
       return { spendDay, incomeDay };
+    },
+    goEdit(id) {
+      this.$router.push(`/edit/${id}`);
     }
   }
 };
@@ -75,7 +78,7 @@ export default {
 
       .Subtotal {
         .spend {
-          margin-right: 3px;
+          margin-right: 5px;
         }
       }
     }

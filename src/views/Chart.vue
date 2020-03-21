@@ -2,19 +2,15 @@
 <template>
   <div class="chart">
     <Layout>
-      <div class="chartNav">
-        <div>
-          <button :class="{selected:type==='-'}" @click="changeType('-')">支出</button>
-          <button :class="{selected:type==='+'}" @click="changeType('+')">收入</button>
-        </div>
-      </div>
-      <!-- <div class="chart-warp" v-show="dataList">
+      <ChartNav :value="type" />
+      <div class="chart-warp" v-if="dataList.length>0">
         <div id="pie"></div>
         <BarChart :dataSource="dataList">
           <p>{{type==="-"?'支出':'收入'}}排行榜</p>
         </BarChart>
-      </div> -->
-      <pieChart :value="{dataList,type}"/>
+      </div>
+      <p v-else>目前没有任何数据</p>
+      <!-- <pieChart :value="{dataList,type}"/> -->
     </Layout>
   </div>
 </template>
@@ -22,16 +18,17 @@
 <script>
 import dayjs from "dayjs";
 import echarts from "echarts";
-import pieChart from "@/components/public/pieChart.vue";
+import BarChart from "@/components/public/BarChart.vue";
+import ChartNav from "@/components/chartNav.vue";
 export default {
   components: {
-    pieChart
+    BarChart,
+    ChartNav
   },
   name: "Chart",
   data() {
     return {
       dataList: [],
-      type: "-"
     };
   },
   created() {
@@ -40,18 +37,22 @@ export default {
       item => item.data.type === this.type
     );
   },
+  computed:{
+    type(){
+      return this.$store.state.auth.addDate.type;
+    }
+  },
   watch: {
     type() {
       this.dataList = this.$store.state.auth.DateList.filter(
         item => item.data.type === this.type
       );
-      this.initPie();
+      if (this.dataList.length > 0) {
+        this.initPie();
+      }
     }
   },
   methods: {
-    changeType(type) {
-      this.type = type;
-    },
     initPie() {
       var myChart = echarts.init(document.getElementById("pie"));
       var option = {
@@ -82,9 +83,10 @@ export default {
       myChart.setOption(option);
     }
   },
-
   mounted() {
-    this.initPie();
+    if (this.dataList.length > 0) {
+      this.initPie();
+    }
   }
 };
 </script>
@@ -97,19 +99,5 @@ export default {
   height: 35vh;
   font-family: $font-hei;
 }
-.chartNav {
-  background: $color-yellow;
-  font-size: 16px;
-  padding: 16px 10px;
-  button {
-    width: 50%;
-    padding: 10px 0;
-    border: 1px solid black;
-    background: transparent;
-    &.selected {
-      background: #343233;
-      color: $color-yellow;
-    }
-  }
-}
+
 </style>

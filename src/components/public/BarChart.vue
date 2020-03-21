@@ -7,14 +7,14 @@
       </div>
       <div class="chart">
         <p>{{item.data.currentKind.textName}} {{item.data.percent}}%</p>
-        <div class="column" :style="{width:item.data.percent+'px'}"></div>
+        <div class="column" :style="{width:item.data.percent+'%'}"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import echarts from "echarts";
+
 export default {
   props: {
     dataSource: {
@@ -22,7 +22,6 @@ export default {
       required: true
     }
   },
-  created() {},
   computed: {
     chartSize() {
       const dataList = JSON.parse(JSON.stringify(this.dataSource));

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     
-    <div class="kind" v-if="changeType==='-'">
+    <div class="kind">
       <div
         class="item-wrap"
         v-for="item in kindList"
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="kind" v-else>
+    <!-- <div class="kind" v-else>
       <div
         class="item-wrap"
         v-for="item in kindList"
@@ -26,41 +26,37 @@
           <span>{{item.zhName}}</span>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import addDataSource from "@/lib/addDataSource";
+
 
 export default {
-  data() {
-    return {
-    };
+  created(){
+    this.$store.commit('fetchKindList')
   },
   methods: {
-    chooseKind(event,kind) {
-      if(kind.name=='setting'){
-        this.$router.push('/edit')
-        return
+    chooseKind(event, kind) {
+      if (kind.name == "setting") {
+        this.$router.push("/setting");
+        return;
       }
-      this.$store.commit("changeCurrentKind", {iconName:kind.name,textName:kind.zhName});
+      this.$store.commit("changeCurrentKind", {
+        iconName: kind.name,
+        textName: kind.zhName
+      });
     }
   },
   computed: {
-    kindList(){
-      const type = this.$store.state.auth.addDate.type;
-      if(type==='-'){
-        return addDataSource.expense
-      }else{
-        return addDataSource.income
-      }
+    kindList() {
+      return this.$store.getters.currentKinds
     },
     currentKind() {
-      return this.$store.state.auth.addDate.currentKind.iconName
+      return this.$store.state.auth.addDate.currentKind.iconName;
     },
-    changeType() {
-      
+    currentType() {
       return this.$store.state.auth.addDate.type;
     }
   }
@@ -82,7 +78,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     .item {
       display: flex;
       flex-direction: column;
@@ -98,7 +94,6 @@ export default {
       svg {
         width: 36px;
         height: 36px;
-        
       }
     }
   }

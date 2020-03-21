@@ -7,6 +7,7 @@
     </div>
     <NumberPad v-if="showPad" />
     <Layout></Layout>
+    
   </div>
 </template>
 

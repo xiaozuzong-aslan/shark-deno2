@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Ad v-if="adToggle"/>
+    <Ad v-if="adToggle" />
     <Layout v-else>
       <div class="detail">
         <detail-nav @monthClick="showDatePad" />
@@ -12,22 +12,19 @@
         </div>
       </div>
     </Layout>
-   
   </div>
-  
 </template>
 
 <script>
 import detailNav from "@/components/detail/detailNav.vue";
 import Content from "@/components/detail/content.vue";
-import Ad from '@/components/public/Ad.vue'
+import Ad from "@/components/public/Ad.vue";
 import clone from "@/lib/clone";
 import dayjs from "dayjs";
 export default {
   data() {
     return {
-      changeMoth: false,
-      
+      changeMoth: false
     };
   },
   components: {
@@ -38,15 +35,15 @@ export default {
   created() {
     this.$store.commit("fetchData");
   },
-  mounted(){
-    this.$store.commit('changeAdToggle')
+  mounted() {
+    this.$store.commit("changeAdToggle");
   },
   computed: {
     DateList() {
       return this.$store.getters.DateList;
     },
-    adToggle(){
-      return this.$store.state.auth.adToggle
+    adToggle() {
+      return this.$store.state.auth.adToggle;
     }
   },
   methods: {
@@ -58,10 +55,6 @@ export default {
         .month(month - 1)
         .format("YYYY-MM-DD");
       this.$store.commit("currentTime", newTime);
-    },
-   
-    goEdit(id) {
-      this.$router.push(`/edit/${id}`);
     }
   }
 };
@@ -75,7 +68,7 @@ export default {
   height: 100vh;
   width: 100vw;
   bottom: 0;
-  
+
   display: flex;
   flex-direction: column;
   justify-content: center;
