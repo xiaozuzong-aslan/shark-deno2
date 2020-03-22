@@ -28,7 +28,7 @@ export default {
   name: "Chart",
   data() {
     return {
-      dataList: [],
+      dataList: []
     };
   },
   created() {
@@ -37,8 +37,8 @@ export default {
       item => item.data.type === this.type
     );
   },
-  computed:{
-    type(){
+  computed: {
+    type() {
       return this.$store.state.auth.addDate.type;
     }
   },
@@ -54,8 +54,8 @@ export default {
   },
   methods: {
     initPie() {
-      var myChart = echarts.init(document.getElementById("pie"));
-      var option = {
+      const myChart = echarts.init(document.getElementById("pie"));
+      const option = {
         title: {
           text: `${this.type === "-" ? "支出" : "收入"}`
         },
@@ -99,5 +99,7 @@ export default {
   height: 35vh;
   font-family: $font-hei;
 }
-
+p {
+  padding: 5px 16px;
+}
 </style>

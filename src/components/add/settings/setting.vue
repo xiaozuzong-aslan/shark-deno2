@@ -3,17 +3,20 @@
   <div class="settings">
     <ChartNav :value="type">
       <div class="header">
-        <Icon iconName="left" />
+        <Icon iconName="left" @click.native="goBack" />
         <span>类别设置</span>
         <Icon />
       </div>
     </ChartNav>
-    <!-- <ul>
-      <li>
-        <Icon :iconName="" />
-        <span>{{}}</span>
+    <ul>
+      <li v-for="(item,index) in kindList" :key="index">
+        <Icon iconName="left" class="delet" @click.native="remove(item.name)"/>
+        <div>
+          <Icon :iconName="item.name" />
+        </div>
+        <span>{{item.zhName}}</span>
       </li>
-    </ul> -->
+    </ul>
   </div>
 </template>
 
@@ -31,7 +34,17 @@ export default {
       return this.$store.state.auth.addDate.type;
     },
     kindList() {
-      return this.$store.getters.currentKinds;
+      return this.$store.getters.currentKinds.filter(item=>item.name!=='setting');
+    }
+  },
+  methods:{
+    remove(value){
+      const newList = this.$store.getters.currentKinds.filter(item=>item.name!==value)
+      this.$store.commit('saveKindList',newList)
+      this.$store.commit("fetchKindList");
+    },
+    goBack(){
+      this.$router.back()
     }
   }
 };
@@ -48,6 +61,34 @@ export default {
   svg {
     width: 28px;
     height: 28px;
+  }
+}
+ul {
+  li {
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+    padding: 5px 16px;
+    display: flex;
+    align-items: center;
+    .delet {
+      width: 28px;
+      height: 28px;
+      margin-right: 10px;
+    }
+    div {
+      width: 36px;
+      height: 36px;
+      border: 1px solid red;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5f5f5;
+      margin-right: 8px;
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+    }
   }
 }
 </style>

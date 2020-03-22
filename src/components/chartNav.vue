@@ -30,7 +30,7 @@ export default {
 .chartNav {
   background: $color-yellow;
   font-size: 16px;
-  padding: 16px 10px;
+  padding: 10px 16px;
   button {
     width: 50%;
     padding: 10px 0;

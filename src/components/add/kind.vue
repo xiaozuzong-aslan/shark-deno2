@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    
     <div class="kind">
       <div
         class="item-wrap"
@@ -14,28 +13,13 @@
         </div>
       </div>
     </div>
-    <!-- <div class="kind" v-else>
-      <div
-        class="item-wrap"
-        v-for="item in kindList"
-        :key="item.name"
-        @click="chooseKind($event,item)"
-      >
-        <div class="item" :class="{selected:item.name === currentKind}">
-          <Icon :iconName="item.name" />
-          <span>{{item.zhName}}</span>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script>
-
-
 export default {
-  created(){
-    this.$store.commit('fetchKindList')
+  created() {
+    this.$store.commit("fetchKindList");
   },
   methods: {
     chooseKind(event, kind) {
@@ -51,7 +35,7 @@ export default {
   },
   computed: {
     kindList() {
-      return this.$store.getters.currentKinds
+      return this.$store.getters.currentKinds;
     },
     currentKind() {
       return this.$store.state.auth.addDate.currentKind.iconName;

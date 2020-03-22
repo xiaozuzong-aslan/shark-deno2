@@ -53,7 +53,7 @@ export default {
       const result = confirm("删除后无法恢复哦");
       if (result) {
         const newDateList = this.$store.state.auth.DateList.filter(item => item.id !== this.dataList.id);
-        console.log(newDateList)
+        
         this.$store.commit("changeDateList", newDateList);
         this.$router.push('/detail')
       }
