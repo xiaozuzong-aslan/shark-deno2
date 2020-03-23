@@ -11,10 +11,9 @@
 <script>
 export default {
   name: "ChartNav",
-  props: {
-    value: {
-      type: String,
-      required: true
+  computed:{
+    value(){
+      return this.$store.state.auth.addDate.type;
     }
   },
   methods: {

@@ -10,7 +10,7 @@ const state = {
     currentTime: dayjs().format('YYYY-MM-DD'),
     DateList: [] as RecordItem[],
     spendKinds: [] as string[],
-    incomeKinds:[] as string[]
+    incomeKinds: [] as string[]
 }
 const getters = {
     DateList() {
@@ -29,6 +29,11 @@ const getters = {
             }
         });
         return items;
+    },
+    getListByType() {
+        return state.DateList.filter(
+            item => item.data.type === state.addDate.type
+        );
     },
     monthSpend() {
         const month = dayjs(state.currentTime).format('MM')

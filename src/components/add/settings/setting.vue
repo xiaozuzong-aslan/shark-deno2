@@ -10,7 +10,7 @@
     </ChartNav>
     <ul>
       <li v-for="(item,index) in kindList" :key="index">
-        <Icon iconName="left" class="delet" @click.native="remove(item.name)"/>
+        <Icon iconName="setting-delete" class="delet" @click.native="remove(item.name)"/>
         <div>
           <Icon :iconName="item.name" />
         </div>
@@ -73,11 +73,12 @@ ul {
       width: 28px;
       height: 28px;
       margin-right: 10px;
+      color:rgba(red, 0.3);
     }
     div {
       width: 36px;
       height: 36px;
-      border: 1px solid red;
+      
       border-radius: 50%;
       display: flex;
       justify-content: center;

@@ -9,7 +9,10 @@
           <p>{{type==="-"?'支出':'收入'}}排行榜</p>
         </BarChart>
       </div>
-      <p v-else>目前没有任何数据</p>
+      <p v-else>
+        目前没有任何
+        <span>{{type==="-"?'支出':'收入'}}</span>数据
+      </p>
       <!-- <pieChart :value="{dataList,type}"/> -->
     </Layout>
   </div>
@@ -17,7 +20,8 @@
 
 <script>
 import dayjs from "dayjs";
-import echarts from "echarts";
+import echarts from "@/echarts.js";
+
 import BarChart from "@/components/public/BarChart.vue";
 import ChartNav from "@/components/chartNav.vue";
 export default {
@@ -33,9 +37,7 @@ export default {
   },
   created() {
     this.$store.commit("fetchData");
-    this.dataList = this.$store.state.auth.DateList.filter(
-      item => item.data.type === this.type
-    );
+    this.dataList = this.$store.getters.getListByType;
   },
   computed: {
     type() {
@@ -44,11 +46,11 @@ export default {
   },
   watch: {
     type() {
-      this.dataList = this.$store.state.auth.DateList.filter(
-        item => item.data.type === this.type
-      );
+      this.dataList = this.$store.getters.getListByType;
       if (this.dataList.length > 0) {
-        this.initPie();
+        this.$nextTick(function() {
+          this.initPie();
+        });
       }
     }
   },
@@ -84,9 +86,7 @@ export default {
     }
   },
   mounted() {
-    if (this.dataList.length > 0) {
-      this.initPie();
-    }
+    this.initPie();
   }
 };
 </script>
@@ -101,5 +101,8 @@ export default {
 }
 p {
   padding: 5px 16px;
+  span {
+    color: red;
+  }
 }
 </style>
