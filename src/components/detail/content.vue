@@ -19,7 +19,11 @@
       </ul>
     </div>
   </div>
-  <div class="content-none" v-else>未查询到该月份的数据呀</div>
+
+  <div class="content-none" v-else>
+    <Icon iconName="none" />
+    <p>未查询到该月份的数据呀,快去记一笔吧</p>
+  </div>
 </template>
 
 <script>
@@ -60,8 +64,19 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content-none {
-  text-align: center;
-  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 16px;
+  color: gray;
+  font-size: 14px;
+  svg {
+    width: 100px;
+    height: 100px;
+    color: gray;
+  }
 }
 
 .content {

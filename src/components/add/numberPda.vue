@@ -133,6 +133,7 @@ export default {
           iconName: undefined,
           textName: undefined
         });
+        window.alert('记录成功')
         setTimeout(() => {
         this.$router.push("/detail");
       }, 400);

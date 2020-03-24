@@ -1,7 +1,7 @@
 
 <template>
-  <div class="chart">
-    <Layout>
+  <Layout>
+    <div class="chart">
       <ChartNav :value="type" />
       <div class="chart-warp" v-if="dataList.length>0">
         <div id="pie"></div>
@@ -9,13 +9,14 @@
           <p>{{type==="-"?'支出':'收入'}}排行榜</p>
         </BarChart>
       </div>
-      <p v-else>
-        目前没有任何
-        <span>{{type==="-"?'支出':'收入'}}</span>数据
-      </p>
-      <!-- <pieChart :value="{dataList,type}"/> -->
-    </Layout>
-  </div>
+      <div class="notes-none" v-else>
+        <Icon iconName="none" />
+        <p>目前没有任何<span>{{type==="-"?'支出':'收入'}}</span>的数据</p>
+      </div>
+    </div>
+
+    <!-- <pieChart :value="{dataList,type}"/> -->
+  </Layout>
 </template>
 
 <script>
@@ -86,23 +87,42 @@ export default {
     }
   },
   mounted() {
-    this.initPie();
+    if (this.dataList.length > 0) {
+      this.initPie();
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-
+.chart {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .notes-none {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 16px;
+    color: gray;
+    font-size: 14px;
+    svg {
+      width: 100px;
+      height: 100px;
+      color: gray;
+    }
+    span {
+      color: red;
+    }
+  }
+}
 #pie {
   padding: 5px 16px;
   width: 100vw;
   height: 35vh;
   font-family: $font-hei;
-}
-p {
-  padding: 5px 16px;
-  span {
-    color: red;
-  }
 }
 </style>

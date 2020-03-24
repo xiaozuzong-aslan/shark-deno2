@@ -40,6 +40,7 @@ export default {
 @import "~@/assets/style/helper.scss";
 .record-nav {
   background: $color-yellow;
+  width: 100vw;
   padding: 0 10px;
   display: flex;
   .right {

@@ -22,6 +22,7 @@ export default {
     height: 100vh;
     .main{
         flex-grow: 1;
+        
     }
 }
 </style>

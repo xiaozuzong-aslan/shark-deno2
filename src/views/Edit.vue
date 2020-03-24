@@ -50,12 +50,12 @@ export default {
       )[0];
     },
     remove() {
-      const result = confirm("删除后无法恢复哦");
+      const result = window.confirm("删除后无法恢复哦");
       if (result) {
         const newDateList = this.$store.state.auth.DateList.filter(item => item.id !== this.dataList.id);
         
         this.$store.commit("changeDateList", newDateList);
-        this.$router.push('/detail')
+        this.$router.back()
       }
     },
     save() {
