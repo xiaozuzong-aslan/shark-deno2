@@ -16,9 +16,8 @@
 </template>
 
 <script>
-import detailNav from "@/components/detail/detailNav.vue";
-import Content from "@/components/detail/content.vue";
-import Ad from "@/components/public/Ad.vue";
+import {detailNav,Content,Ad,Vue} from './importComponents'
+
 import clone from "@/lib/clone";
 import dayjs from "dayjs";
 export default {
@@ -60,31 +59,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
+<style lang="scss" scoped src='./style.scss'>
 
-.changeMoth {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  bottom: 0;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: rgba(102, 102, 102, 0.3);
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    background: rgba(102, 102, 102, 0.8);
-    li {
-      width: 33.33vw;
-      padding: 10px 3px;
-      border: 1px solid rgba(#d2d3d7, 0.5);
-      text-align: center;
-      color: #fff;
-    }
-  }
-}
 </style>

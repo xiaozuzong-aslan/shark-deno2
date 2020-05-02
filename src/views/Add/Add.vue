@@ -12,10 +12,7 @@
 </template>
 
 <script lang="ts">
-import recordNav from "@/components/add/recordNav.vue";
-import Kind from "@/components/add/kind.vue";
-import NumberPad from "@/components/add/numberPda.vue";
-import Vue from 'vue'
+import {recordNav,Kind,NumberPad,Vue}  from './importComponents'
 import {Component} from 'vue-property-decorator'
 
 @Component({components:{recordNav,Kind,NumberPad}})
@@ -31,20 +28,5 @@ export default class Add extends Vue{
 </script>
 
 
-<style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
-.record-wrapper {
-  position: fixed;
-  transform: translate(0, 100%);
-  transition: all 0.4s linear;
-  background: #fff;
-  height: 100vh;
-  &.visible {
-    transform: translate(0, 0);
-  }
-}
-.numberPad {
-  position: fixed;
-  bottom: 0;
-}
+<style lang="scss" scoped src="./style.scss">
 </style>

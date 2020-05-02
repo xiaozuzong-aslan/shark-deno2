@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import contNumber from "@/lib/cont.js";
+import contNumber from "@/lib/cont";
 export default {
   data() {
     return {

@@ -15,9 +15,7 @@
 </template>
 
 <script>
-import EditNav from "@/components/edit/editNav.vue";
-import EditInfo from "@/components/edit/editInfo.vue";
-import EditInput from "@/components/edit/editInput.vue";
+import {EditNav,EditInfo,EditInput} from './importComponents'
 export default {
   components: {
     EditNav,
@@ -73,42 +71,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
-.edit {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.wrap {
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-  display: flex;
-  padding: 18.5px 0;
-  button {
-    flex-grow: 1;
-    border: none;
-    background: #fff;
-    font-size: 16px;
-
-    &.left {
-      border-right: 1px solid fade-out(#8e8e8e, 0.7);
-    }
-  }
-}
-.editButton {
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-  display: flex;
-  padding: 18.5px 0;
-  button {
-    flex-grow: 1;
-    border: none;
-    background: #fff;
-    font-size: 16px;
-
-    &.left {
-      border-right: 1px solid fade-out(#8e8e8e, 0.7);
-    }
-  }
-}
+<style lang="scss" scoped src='./style.scss'>
 </style>

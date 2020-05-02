@@ -18,12 +18,9 @@
 </template>
 
 <script lang="ts">
-
-import dayjs from "dayjs";
-import BarChart from "@/components/public/BarChart.vue";
-import ChartNav from "@/components/chartNav.vue";
+import {BarChart,ChartNav,Vue} from './importComponents'
 import initPie from '@/lib/initPie';//封装的数据图方法
-import Vue from 'vue'
+import dayjs from "dayjs";//时间插件
 import {Component,Watch} from 'vue-property-decorator'
 
 @Component({components:{BarChart,ChartNav}})
@@ -53,36 +50,5 @@ export default class Chart extends Vue{
 }
 </script>
 
-<style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
-.chart {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  .notes-none {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 16px;
-    color: gray;
-    font-size: 14px;
-    svg {
-      width: 100px;
-      height: 100px;
-      color: gray;
-    }
-    span {
-      color: red;
-    }
-  }
-}
-#pie {
-  padding: 5px 16px;
-  width: 100vw;
-  height: 35vh;
-  font-family: $font-hei;
-}
+<style lang="scss" scoped src='./style.scss'>
 </style>
