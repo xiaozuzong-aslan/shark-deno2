@@ -55,7 +55,7 @@ export default class Content extends Vue{
         .reduce((sum, item) => sum + parseFloat(item.data.number), 0);
       return { spendDay, incomeDay };
     }
-    goEdit(id) {
+    goEdit(id:string) {
       this.$router.push(`/edit/${id}`);
     }
 };
