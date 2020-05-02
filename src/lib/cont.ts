@@ -41,6 +41,8 @@ function contNumber(string:string) {
       return string
     }
     
+  }else{
+    return '0'
   }
 }
 export default contNumber;

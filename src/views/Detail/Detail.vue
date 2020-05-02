@@ -15,50 +15,37 @@
   </div>
 </template>
 
-<script>
-import {detailNav,Content,Ad,Vue} from './importComponents'
-
-import clone from "@/lib/clone";
+<script lang='ts'>
 import dayjs from "dayjs";
-export default {
-  data() {
-    return {
-      changeMoth: false
-    };
-  },
-  components: {
-    detailNav,
-    Content,
-    Ad
-  },
+import {detailNav,Content,Ad,Vue} from './importComponents'
+import clone from "@/lib/clone";//深克隆
+import {Component} from 'vue-property-decorator'
+
+@Component({components:{detailNav,Content,Ad}})
+export default class Detail extends Vue{
+  changeMoth:Boolean = false
   created() {
     this.$store.commit("fetchData");
-  },
+  }
   mounted() {
     this.$store.commit("changeAdToggle");
-  },
-  computed: {
-    DateList() {
-      return this.$store.getters.DateList;
-    },
-    adToggle() {
-      return this.$store.state.auth.adToggle;
-    }
-  },
-  methods: {
-    showDatePad() {
+  }
+  get DateList() {
+    return this.$store.getters.DateList;
+  }
+  get adToggle() {
+    return this.$store.state.auth.adToggle;
+  }
+  showDatePad() {
       this.changeMoth = !this.changeMoth;
-    },
-    changeMonth(month) {
-      const newTime = dayjs()
-        .month(month - 1)
-        .format("YYYY-MM-DD");
-      this.$store.commit("currentTime", newTime);
-    }
+  }
+  changeMonth(month:number) {
+    const newTime = dayjs()
+      .month(month - 1)
+      .format("YYYY-MM-DD");
+    this.$store.commit("currentTime", newTime);
   }
 };
 </script>
 
-<style lang="scss" scoped src='./style.scss'>
-
-</style>
+<style lang="scss" scoped src='./style.scss'></style>

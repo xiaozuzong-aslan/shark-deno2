@@ -9,8 +9,8 @@ const state = {
     adToggle: true,
     currentTime: dayjs().format('YYYY-MM-DD'),
     DateList: [] as RecordItem[],
-    spendKinds: [] as string[],
-    incomeKinds: [] as string[]
+    spendKinds: [] as Tag[],
+    incomeKinds: [] as Tag[]
 }
 const getters = {
     DateList() {
@@ -53,15 +53,15 @@ const getters = {
     }
 }
 const mutations = {
-    fetchData(state: any) {
+    fetchData(state: State) {
         state.DateList = JSON.parse(window.localStorage.getItem('dataSource') || '[]')
     },
-    fetchKindList(state: any) {
+    fetchKindList(state: State) {
         state.spendKinds = JSON.parse(window.localStorage.getItem('spend') || JSON.stringify(addDataSource.expense));
         state.incomeKinds = JSON.parse(window.localStorage.getItem('income') || JSON.stringify(addDataSource.income));
 
     },
-    saveKindList(state: any, newList: string[]) {
+    saveKindList(state: State, newList: string[]) {
         if (state.addDate.type === '-') {
             window.localStorage.setItem('spend', JSON.stringify(newList))
         } else {
@@ -69,35 +69,35 @@ const mutations = {
         }
 
     },
-    saveData(state: any) {
+    saveData(state: State) {
         const id = createId()
         const data = JSON.parse(JSON.stringify({ id, data: state.addDate }))
         state.DateList.push(data)
         window.localStorage.setItem('dataSource', JSON.stringify(state.DateList))
     },
-    changeDateList(state: any, data: RecordItem[]) {
+    changeDateList(state: State, data: RecordItem[]) {
         window.localStorage.setItem('dataSource', JSON.stringify(data))
     },
-    changeAddToggle(state: any) {
+    changeAddToggle(state: State) {
         state.addToggle = !state.addToggle;
     },
-    changeCurrentKind(state: any, currentKind: currentKind) {
+    changeCurrentKind(state: State, currentKind: currentKind) {
         state.addDate.currentKind = currentKind;
     },
-    changeType(state: any, type: string) {
+    changeType(state: State, type: string) {
         state.addDate.type = type;
     },
-    changeNotes(state: any, notes: string) {
+    changeNotes(state: State, notes: string) {
         state.addDate.notes = notes
     },
-    changeNumber(state: any, number: string) {
+    changeNumber(state: State, number: string) {
         state.addDate.number = number
         state.addDate.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss')
     },
-    currentTime(state: any, date: string) {
+    currentTime(state: State, date: string) {
         state.currentTime = date
     },
-    changeAdToggle(state: any) {
+    changeAdToggle(state: State) {
         setTimeout(() => {
             state.adToggle = false
 

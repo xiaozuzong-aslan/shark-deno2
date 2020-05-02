@@ -12,29 +12,32 @@
 </template>
 
 <script>
-export default {
-  computed:{
-    type(){
+import Vue from 'vue'
+import {Component} from 'vue-property-decorator'
+@Component
+export default class RecordNav extends Vue{
+  get type(){
       return this.$store.state.auth.addDate.type
-    }
-  },
-  methods: {
-    changeAddToggle() {
-      this.$store.commit("changeAddToggle");
-      this.$store.commit("changeCurrentKind", {
-        iconName: undefined,
-        textName: undefined
+  }
+  changeAddToggle() {
+    this.$store.commit("changeAddToggle");
+    this.$store.commit("changeCurrentKind", {
+      iconName: undefined,
+      textName: undefined
       });
       setTimeout(() => {
         this.$router.push("/detail");
       }, 400);
-    },
-    changeType(type) {
-      this.$store.commit("changeType", type);
-    }
   }
-};
+  changeType(type) {
+    this.$store.commit("changeType", type);
+  }
+}
+
 </script>
+
+
+
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";

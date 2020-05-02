@@ -16,34 +16,33 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import {Component} from 'vue-property-decorator'
+export default class Kind extends Vue{
   created() {
     this.$store.commit("fetchKindList");
-  },
-  methods: {
-    chooseKind(event, kind) {
-      if (kind.name == "setting") {
-        this.$router.push("/setting");
-        return;
-      }
-      this.$store.commit("changeCurrentKind", {
-        iconName: kind.name,
-        textName: kind.zhName
-      });
-    }
-  },
-  computed: {
-    kindList() {
-      return this.$store.getters.currentKinds;
-    },
-    currentKind() {
-      return this.$store.state.auth.addDate.currentKind.iconName;
-    },
-    currentType() {
-      return this.$store.state.auth.addDate.type;
-    }
   }
+  chooseKind(event:Event, kind:Tag) {
+    if (kind.name == "setting") {
+      this.$router.push("/setting");
+      return;
+    }
+    this.$store.commit("changeCurrentKind", {
+      iconName: kind.name,
+      textName: kind.zhName
+    });
+  }
+  get kindList() {
+      return this.$store.getters.currentKinds;
+  }
+  get currentKind() {
+      return this.$store.state.auth.addDate.currentKind.iconName;
+  }
+  get currentType() {
+    return this.$store.state.auth.addDate.type;
+  }
+ 
 };
 </script>
 

@@ -30,26 +30,23 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
+import Vue from 'vue'
+import {Component} from 'vue-property-decorator'
 import contNumber from "@/lib/cont";
-export default {
-  data() {
-    return {
-      output: "0",
-      cont: "完成"
-    };
-  },
 
-  methods: {
-    changeInput(event) {
-      this.$store.commit("changeNotes", event.target.value);
-    },
+export default class NumberPad extends Vue{
+    output =  "0"
+    cont = "完成"
+    changeInput(event:KeyboardEvent) {
+      event && event.target && this.$store.commit("changeNotes", (event.target as HTMLInputElement).value);
+    }
     clearNumber() {
       this.output = "0";
-    },
-    changeNumber(event) {
+    }
+    changeNumber(event:Event) {//可优化，这是一坨屎请无视
       const { output } = this;
-      const value = event.target.innerText;
+      const value =  (event.target as HTMLButtonElement).innerText;
       const lastIndex = output.length - 1;
       if (output[lastIndex] === "+" || output[lastIndex] === "-") {
         this.cont = "完成";
@@ -101,7 +98,7 @@ export default {
           this.output += value;
         }
       }
-    },
+    }
     remove() {
       if (this.output[this.output.length - 2] === ".") {
         this.output = this.output.slice(0, this.output.length - 2);
@@ -112,7 +109,7 @@ export default {
           this.output = "0";
         }
       }
-    },
+    }
     commit() {
       if (this.cont === "=") {
         const { output } = this;
@@ -139,7 +136,6 @@ export default {
       }, 400);
       }
     }
-  }
 };
 </script>
 

@@ -20,35 +20,35 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import ChartNav from "@/components/chartNav.vue";
-export default {
+import {Component} from 'vue-property-decorator'
+@Component({components:{ChartNav}})
+
+export default class Setting extends Vue{
   created() {
     this.$store.commit("fetchKindList");
-  },
-  components: {
-    ChartNav
-  },
-  computed: {
-    type() {
-      return this.$store.state.auth.addDate.type;
-    },
-    kindList() {
-      return this.$store.getters.currentKinds.filter(item=>item.name!=='setting');
-    }
-  },
-  methods:{
-    remove(value){
-      const newList = this.$store.getters.currentKinds.filter(item=>item.name!==value)
-      this.$store.commit('saveKindList',newList)
-      this.$store.commit("fetchKindList");
-    },
-    goBack(){
-      this.$router.back()
-    }
   }
+  get type() {
+    return this.$store.state.auth.addDate.type;
+  }
+  get kindList() {
+    return (this.$store.getters.currentKinds as Tag[]).filter(item=>item.name!=='setting');
+  }
+  remove(value:'+'|'-'){
+    const newList = (this.$store.getters.currentKinds as Tag[]).filter(item=>item.name!==value)
+    this.$store.commit('saveKindList',newList)
+    this.$store.commit("fetchKindList");
+  }
+  goBack(){
+    this.$router.back()
+  }
+  
 };
 </script>
+
+
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 .header {

@@ -1,3 +1,12 @@
+type State = {
+    addDate: addDate;
+    addToggle: boolean;
+    adToggle: boolean;
+    currentTime: string;
+    DateList: RecordItem[];
+    spendKinds: currentKind[];
+    incomeKinds: currentKind[];
+}
 
 type RecordItem = {
     id: string;
@@ -13,5 +22,9 @@ type addDate = {
 type currentKind = {
     iconName?: string;
     textName?: string;
+}
+type Tag = {
+    name:string,
+    zhName:string
 }
 

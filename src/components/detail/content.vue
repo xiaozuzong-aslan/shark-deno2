@@ -26,17 +26,16 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
+import Vue from 'vue'
+import {Component,Prop} from 'vue-property-decorator'
 import dayjs from "dayjs";
-export default {
-  props: {
-    value: {
-      type: Object,
-      required: true
-    }
-  },
-  methods: {
-    beautify(time) {
+
+export default class Content extends Vue{
+  @Prop(Object) readonly value!:Object
+  
+
+    beautify(time:string) {
       if (dayjs(time).isSame(dayjs(), "day")) {
         return "今天";
       } else if (dayjs(time).isSame(dayjs().subtract(1, "day"), "day")) {
@@ -46,8 +45,8 @@ export default {
       } else if (dayjs(time).isSame(dayjs(), "year")) {
         return dayjs(time).format("MM月DD");
       }
-    },
-    dateDay(data) {
+    }
+    dateDay(data:any) {
       const spendDay = data
         .filter(item => item.data.type === "-")
         .reduce((sum, item) => sum + parseFloat(item.data.number), 0);
@@ -55,11 +54,10 @@ export default {
         .filter(item => item.data.type === "+")
         .reduce((sum, item) => sum + parseFloat(item.data.number), 0);
       return { spendDay, incomeDay };
-    },
+    }
     goEdit(id) {
       this.$router.push(`/edit/${id}`);
     }
-  }
 };
 </script>
 <style lang="scss" scoped>
