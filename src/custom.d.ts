@@ -27,4 +27,7 @@ type Tag = {
     name:string,
     zhName:string
 }
+type dateHash = {
+    [propName:string]:RecordItem[]
+}
 

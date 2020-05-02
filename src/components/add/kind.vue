@@ -19,6 +19,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
+
+@Component
 export default class Kind extends Vue{
   created() {
     this.$store.commit("fetchKindList");

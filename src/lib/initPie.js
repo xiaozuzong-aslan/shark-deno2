@@ -1,6 +1,6 @@
-import echarts from "vue-echarts-ts";
+import echarts from "echarts";
 
-const initPie = (dataList:RecordItem[],type:'-'|'+') =>{
+const initPie = (dataList,type) =>{
     const myChart = echarts.init(document.getElementById("pie"));
     const option = {
       title: {
@@ -20,7 +20,7 @@ const initPie = (dataList:RecordItem[],type:'-'|'+') =>{
             ...dataList.map(item => {
               return {
                 value: item.data.number,
-                name: (item.data.currentKind!).textName
+                name: item.data.currentKind.textName
               };
             })
           ]

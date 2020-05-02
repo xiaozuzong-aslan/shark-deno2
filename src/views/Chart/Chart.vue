@@ -19,9 +19,9 @@
 
 <script lang="ts">
 import {BarChart,ChartNav,Vue} from './importComponents'
-import initPie from '@/lib/initPie';//封装的数据图方法
 import dayjs from "dayjs";//时间插件
 import {Component,Watch} from 'vue-property-decorator'
+const initPie = require('@/lib/initPie.js').default //用的是echarts
 
 @Component({components:{BarChart,ChartNav}})
 export default class Chart extends Vue{
@@ -32,7 +32,9 @@ export default class Chart extends Vue{
   }
    mounted() {
     if (this.dataList.length > 0) {
+      
       initPie(this.dataList,this.type);
+      
     }
   }
   get type() {

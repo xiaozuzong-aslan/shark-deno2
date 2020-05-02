@@ -26,40 +26,41 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 import {Component,Prop} from 'vue-property-decorator'
 import dayjs from "dayjs";
 
+@Component
 export default class Content extends Vue{
-  @Prop(Object) readonly value!:Object
-  
-
-    beautify(time:string) {
-      if (dayjs(time).isSame(dayjs(), "day")) {
-        return "今天";
-      } else if (dayjs(time).isSame(dayjs().subtract(1, "day"), "day")) {
-        return "昨天";
-      } else if (dayjs(time).isSame(dayjs().subtract(2, "day"), "day")) {
-        return "前天";
-      } else if (dayjs(time).isSame(dayjs(), "year")) {
-        return dayjs(time).format("MM月DD");
-      }
+  @Prop(Object) readonly value!:dateHash 
+  beautify(time:string) {
+    if (dayjs(time).isSame(dayjs(), "day")) {
+      return "今天";
+    } else if (dayjs(time).isSame(dayjs().subtract(1, "day"), "day")) {
+      return "昨天";
+    } else if (dayjs(time).isSame(dayjs().subtract(2, "day"), "day")) {
+      return "前天";
+    } else if (dayjs(time).isSame(dayjs(), "year")) {
+      return dayjs(time).format("MM月DD");
     }
-    dateDay(data) {
-      const spendDay = data
-        .filter(item => item.data.type === "-")
-        .reduce((sum, item) => sum + parseFloat(item.data.number), 0);
-      const incomeDay = data
-        .filter(item => item.data.type === "+")
-        .reduce((sum, item) => sum + parseFloat(item.data.number), 0);
-      return { spendDay, incomeDay };
-    }
-    goEdit(id:string) {
-      this.$router.push(`/edit/${id}`);
-    }
+  }
+  dateDay(data:RecordItem[]) {
+    console.log(data)
+    const spendDay = data
+      .filter(item => item.data.type === "-")
+      .reduce((sum, item) => sum + parseFloat(item.data.number), 0);
+    const incomeDay = data
+      .filter(item => item.data.type === "+")
+      .reduce((sum, item) => sum + parseFloat(item.data.number), 0);
+    return { spendDay, incomeDay };
+  }
+  goEdit(id:string) {
+    this.$router.push(`/edit/${id}`);
+  } 
 };
 </script>
+
 <style lang="scss" scoped>
 .content-none {
   display: flex;

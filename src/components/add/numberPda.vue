@@ -34,12 +34,12 @@
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
 import contNumber from "@/lib/cont";
-
+@Component
 export default class NumberPad extends Vue{
-    output =  "0"
-    cont = "完成"
+    output:string = "0"
+    cont:string = "完成"
     changeInput(event:KeyboardEvent) {
-      event && event.target && this.$store.commit("changeNotes", (event.target as HTMLInputElement).value);
+      this.$store.commit("changeNotes", (event.target as HTMLInputElement).value);
     }
     clearNumber() {
       this.output = "0";

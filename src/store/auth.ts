@@ -15,7 +15,7 @@ const state = {
 const getters = {
     DateList() {
         const month = dayjs(state.currentTime).format('MM')
-        const items = {} as any;
+        const items = {} as dateHash;
         const list = clone(state.DateList).filter(item => dayjs(item.data.createdAt).format('MM') === month).sort(
             (b: RecordItem, a: RecordItem) =>
                 dayjs(a.data.createdAt).valueOf() - dayjs(b.data.createdAt).valueOf()

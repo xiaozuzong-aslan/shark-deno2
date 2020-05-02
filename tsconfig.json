@@ -33,7 +33,7 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "src/lib/addDataSource.ts",
-    "src/main.ts"
+    "src/main.ts", "src/lib/initPie.js"
   ],
   "exclude": [
     "node_modules"
