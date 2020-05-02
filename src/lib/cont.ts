@@ -1,4 +1,4 @@
-function contNumber(string) {
+function contNumber(string:string) {
   let flag = false;
   if (string[0] === "-") {
     string = string.slice(1);
