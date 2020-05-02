@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script>
 import Vue from 'vue'
 import {Component,Prop} from 'vue-property-decorator'
 import dayjs from "dayjs";
@@ -46,7 +46,7 @@ export default class Content extends Vue{
         return dayjs(time).format("MM月DD");
       }
     }
-    dateDay(data:any) {
+    dateDay(data) {
       const spendDay = data
         .filter(item => item.data.type === "-")
         .reduce((sum, item) => sum + parseFloat(item.data.number), 0);
