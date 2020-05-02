@@ -10,7 +10,7 @@
     </div>
     <div class="date">
       <span>日期</span>
-      <input type="text" v-model="info.data.createdAt" @click="xxx" />
+      <input type="text" v-model="info.data.createdAt"  />
     </div>
     <div class="notes">
       <span>备注</span>
@@ -19,31 +19,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      info: JSON.parse(JSON.stringify(this.value))
-    };
-  },
-  props: {
-    value: {
-      type: Object,
-      required: true
-    }
-  },
-  methods: {
-    xxx() {
-      console.log(this.info);
-    }
-  },
-  watch: {
-    info: {
-      handler() {
-        this.$emit('update:value',this.info)
-      },
-      deep: true
-    }
+<script lang="ts">
+import Vue from 'vue'
+import {Component,Prop, Watch} from 'vue-property-decorator'
+@Component
+export default class EditInput extends Vue{
+  @Prop(Object) readonly value:RecordItem |undefined
+  info:RecordItem = JSON.parse(JSON.stringify(this.value))
+  @Watch('info', { immediate: false, deep: true })
+  onInfoChanged() {
+    this.$emit('update:value',this.info)
   }
 };
 </script>

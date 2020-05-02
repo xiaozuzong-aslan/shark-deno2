@@ -8,18 +8,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "ChartNav",
-  computed:{
-    value(){
+<script lang="ts">
+import Vue from 'vue'
+import {Component,Prop} from 'vue-property-decorator'
+@Component
+
+export default class ChartNav extends Vue{
+  get value(){
       return this.$store.state.auth.addDate.type;
-    }
-  },
-  methods: {
-    changeType(type) {
-      this.$store.commit('changeType',type)
-    }
+  }
+  changeType(type:'+'|'-') {
+    this.$store.commit('changeType',type)
   }
 };
 </script>

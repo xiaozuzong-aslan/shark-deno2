@@ -46,7 +46,6 @@ export default class Content extends Vue{
     }
   }
   dateDay(data:RecordItem[]) {
-    console.log(data)
     const spendDay = data
       .filter(item => item.data.type === "-")
       .reduce((sum, item) => sum + parseFloat(item.data.number), 0);

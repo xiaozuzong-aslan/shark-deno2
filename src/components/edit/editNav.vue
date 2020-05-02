@@ -13,18 +13,14 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    value: {
-      type: Object,
-      required: true
-    }
-  },
-  methods: {
-    goBack() {
-      this.$router.back();
-    }
+<script lang="ts">
+import Vue from 'vue'
+import {Component,Prop} from 'vue-property-decorator'
+@Component
+export default class EditNave extends Vue{
+  @Prop(Object) readonly value:RecordItem|undefined
+  goBack() {
+    this.$router.back();
   }
 };
 </script>

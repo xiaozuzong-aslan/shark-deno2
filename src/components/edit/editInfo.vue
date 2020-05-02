@@ -19,14 +19,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    value: {
-      type: Object,
-      required: true
-    }
-  }
+<script lang="ts">
+import Vue from 'vue'
+import {Component,Prop} from 'vue-property-decorator'
+@Component
+export default class EditInfo extends Vue{
+  @Prop(Object) readonly value!:RecordItem
 };
 </script>
 

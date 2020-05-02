@@ -21,26 +21,22 @@
   </div>
 </template>
 
-<script>
-import dayjs from 'dayjs'
-
-
-
-export default {
-  computed:{
-    time(){
-      const time = dayjs(this.$store.state.auth.currentTime)
-      return {year:time.$y,month:time.$M+1}
-    },
-     monthSpend(){
-      return this.$store.getters.monthSpend
-    },
-  },
- methods:{
-   monthClick(){
-     this.$emit('monthClick')
-   }
- }
+<script class="ts">
+import Vue from 'vue'
+import {Component} from 'vue-property-decorator'
+import dayjs from "dayjs";
+@Component
+export default class DetailNav extends Vue{
+  get time(){
+    const time = dayjs(this.$store.state.auth.currentTime)
+    return {year:time.$y,month:time.$M+1}
+  }
+  get monthSpend(){
+    return this.$store.getters.monthSpend
+  }
+  monthClick(){
+    this.$emit('monthClick')
+  }
 };
 </script>
 

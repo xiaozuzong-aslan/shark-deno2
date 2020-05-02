@@ -24,8 +24,8 @@
 import Vue from 'vue'
 import ChartNav from "@/components/chartNav.vue";
 import {Component} from 'vue-property-decorator'
-@Component({components:{ChartNav}})
 
+@Component({components:{ChartNav}})
 export default class Setting extends Vue{
   created() {
     this.$store.commit("fetchKindList");

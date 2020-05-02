@@ -13,26 +13,24 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      dataList: null
-    };
-  },
+<script lang="ts">
+import Vue from 'vue'
+import {Component} from 'vue-property-decorator'
+@Component
+export default class EditTabBer extends Vue{
+  dataList:RecordItem|null = null
   created() {
-    this.$store.commit("fetchData");
+    this.$store.commit("fetchData"); 
     const id = this.$route.params.id;
-    this.dataList = this.$store.state.auth.DateList.filter(
+    this.dataList = (this.$store.state.auth.DateList as RecordItem[]).filter(
       item => item.id === id
     )[0];
     console.log(this.dataList);
-  },
-  methods: {
-    goBack() {
-      this.$router.back();
-    }
   }
+  goBack() {
+    this.$router.back();
+  }
+
 };
 </script>
 
