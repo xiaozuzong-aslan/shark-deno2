@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Chart from '../views/Chart.vue'
-import Add from '@/views/Add.vue'
+import Chart from '@/views/Chart/Chart.vue'
+import Add from '@/views/Add/Add.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/detail',
     name: 'Detail',
-    component: () => import('../views/Detail.vue')
+    component: () => import('../views/Detail/Detail.vue')
   },
   {
     path: '/add',
@@ -28,7 +28,7 @@ const routes = [
   {
     path: '/edit/:id',
     name: 'Edit',
-    component: () => import('../views/Edit.vue')
+    component: () => import('../views/Edit/Edit.vue')
   },
   {
     path: '/setting',//子组件不需要加/
